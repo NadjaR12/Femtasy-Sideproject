@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 import Header from ".";
@@ -20,16 +20,30 @@ describe("Header", () => {
   const title = "Title of Header";
 
   it("renders the title", () => {
-    const { getByText } = mountComponent({ title });
+    mountComponent({ title });
 
-    expect(getByText(title)).toBeInTheDocument();
+    expect(screen.getByText(title)).toBeInTheDocument();
   });
 
+  // context("has a subtitle passed", () => {
   it("renders the subtitle", () => {
     const subtitle = "Subtitle of Header";
 
-    const { getByText } = mountComponent({ subtitle, title });
+    mountComponent({ subtitle, title });
 
-    expect(getByText(subtitle)).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Subtitle of Header" })
+    ).toBeInTheDocument();
   });
+  // });
+
+  // context("has no subtitle passed", () => {
+  it("renders no subtitle", () => {
+    mountComponent({ title });
+
+    expect(
+      screen.queryByRole("heading", { name: "Subtitle of Header" })
+    ).not.toBeInTheDocument();
+  });
+  // });
 });
