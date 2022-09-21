@@ -1,0 +1,26 @@
+.LandingPage {
+  &__bg {
+    background-color: rgba(238, 135, 159, 0.63);
+    width: 100vw;
+    height: 100vh;
+  }
+  &__logo-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  &__logo-bg {
+    position: absolute;
+    z-index: -1;
+    width: 300px;
+  }
+  &__logo {
+    position: absolute;
+    width: 300px;
+  }
+  &__logo:hover {
+    -webkit-transform: scale(1.1);
+  }
+}
