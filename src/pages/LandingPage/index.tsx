@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import PinkExplosionIMG from "../assets/images/explosion-medium.png";
+import PinkExplosionIMG from "../../assets/images/explosion-medium.png";
+
+import "./style.scss";
 
 export default function LandingPage() {
   return (
