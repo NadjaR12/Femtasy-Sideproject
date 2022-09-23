@@ -1,32 +1,11 @@
-import axios from "axios";
-
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import Header from "../Header";
 
-const api = axios.create({
-  baseURL: "https://staging.femtasy.com",
-  headers: {
-    "Access-Control-Allow-Origin": true,
-    withCredentials: true,
-  },
-});
+import useGetAllStories from "../../api";
 
 export default function StoryList() {
-  const [stories, setStories] = useState([] as any[]);
-
-  useEffect(() => {
-    api
-      .get("/api/v1/data_feeds/stories?locale=de&filters=tags.name_de:bdsm")
-      .then((response) => {
-        console.log("response.data", response.data);
-        setStories(response.data);
-      })
-      .catch((err) => {
-        console.log("error", err);
-        return [];
-      });
-  }, []);
+  const stories = useGetAllStories();
 
   return (
     <div>
