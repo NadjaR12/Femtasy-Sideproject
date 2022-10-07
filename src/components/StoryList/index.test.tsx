@@ -1,28 +1,42 @@
 import React from "react";
 
-// import { render } from "@testing-library/react";
-// import "@testing-library/jest-dom";
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
 
-// import StoryList from ".";
+import StoryList from ".";
 
-// const stories = [
-//   {
-//     id: "1",
-//     title: "Story 1",
-//     description: "This story is about this and that.",
-//   },
-//   {
-//     id: "2",
-//     title: "Story 2",
-//     description: "This story is about this and that.",
-//   },
-// ];
+// set up data to get mocked
+const stories = [
+  {
+    id: "1",
+    title: "Story 1",
+    description: "This story is about this and that.",
+  },
+  {
+    id: "2",
+    title: "Story 2",
+    description: "This story is about this and that.",
+  },
+];
 
-// interface IProps {
-//   stories: any[];
-// }
-// const mountComponent = ({ stories }: IProps) => {
-//   return render(<StoryList stories={stories} />);
-// };
+jest.mock("../../hooks/useGetAllStories", () => {
+  return {
+    __esModule: true,
+    default: () => {
+      return stories;
+    },
+  };
+});
 
-// describe("StoryList", () => {});
+const mountComponent = () => {
+  return render(<StoryList />);
+};
+
+describe("StoryList", () => {
+  mountComponent();
+  it("returns stories", () => {
+    expect(
+      screen.getByRole("heading", { name: `${stories[0].title}` })
+    ).toBeInTheDocument();
+  });
+});
