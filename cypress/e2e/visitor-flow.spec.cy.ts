@@ -1,5 +1,7 @@
 describe("Visitor flow", () => {
-  it("directs to Home", () => {
-    cy.visit("localhost:4000/home").contains("Femtasy Audios");
+  it("directs from Landing Page to Home", () => {
+    cy.visit("localhost:4000/").get(".LandingPage__logo").click();
+
+    cy.contains("Home");
   });
 });
