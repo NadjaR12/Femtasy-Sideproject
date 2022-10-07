@@ -1,8 +1,11 @@
 import React from "react";
 
 import Header from "../Header";
+import StoryCard from "../StoryCard";
 
-import useGetAllStories from "../../api";
+import useGetAllStories from "../../hooks/useGetAllStories";
+
+import "./styles.scss";
 
 export default function StoryList() {
   const stories = useGetAllStories();
@@ -10,14 +13,15 @@ export default function StoryList() {
   return (
     <div>
       <Header title="Femtasy Audios" subtitle="List of All Audios" />
-      {stories.map((story) => {
-        return (
-          <>
-            <h3>{story.title}</h3>
-            <div>{story.description}</div>
-          </>
-        );
-      })}
+      <div className="StoryList">
+        {stories.map((story) => {
+          return (
+            <div key={story.id}>
+              <StoryCard story={story} />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
