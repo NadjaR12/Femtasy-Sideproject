@@ -1,8 +1,40 @@
 .StoryCard {
+  width: 100vw;
+  max-width: 600px;
   background-color: white;
   padding: 12px;
   margin-bottom: 24px;
   border-radius: 10px;
-  border: solid 1px rgb(136, 95, 143);
-  color: rgb(177, 31, 194);
+  color: rgb(194, 31, 151);
+  background-color: rgba(255, 255, 255, 0.811);
+
+  &__description {
+    text-align: center;
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-bottom: 24px;
+  }
+  &__icon {
+    height: 16px;
+    align-self: center;
+    margin-right: 5px;
+  }
+  button {
+    color: white;
+    font-weight: 800;
+    box-shadow: none;
+    background-color: rgb(194, 31, 151);
+    border-radius: 24px;
+    margin-left: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-top: 5px;
+    margin-bottom: 8px;
+    a {
+      text-decoration: none;
+      color: white;
+    }
+  }
 }

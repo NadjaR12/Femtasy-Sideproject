@@ -20,7 +20,6 @@ const NavBarItem = ({ title, link }: INavBarProps) => {
 
 export default function NavBar() {
   const location = useLocation();
-  console.log(location.pathname);
 
   return (
     <div className="NavBar">

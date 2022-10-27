@@ -2,6 +2,8 @@ import React from "react";
 import Header from "../Header";
 import NavBar from "../NavBar";
 
+import "./styles.scss";
+
 interface IProps {
   title: string;
   subtitle?: string;
@@ -16,7 +18,7 @@ export default function PageSkeleton({
   children,
 }: IProps) {
   return (
-    <div>
+    <div className="PageSkeleton">
       <NavBar />
       <Header title={title} subtitle={subtitle} className={className} />
       {children}
