@@ -7,7 +7,9 @@ import StoryCard from ".";
 
 const mountComponent = () => {
   return render(
-    <StoryCard story={{ title: "Story 1", description: "ghjehdjke" }} />
+    <StoryCard
+      story={{ title: "Story 1", description: "ghjehdjke", story_id: 1 }}
+    />
   );
 };
 
