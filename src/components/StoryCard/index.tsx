@@ -28,14 +28,17 @@ export default function StoryCard({ story }: IProps) {
     <div className="StoryCard" data-testid="StoryCard">
       <h3 className="StoryCard__title">{story.title}</h3>
       <div>
+        <div className="StoryCard__theme">
+          <h4 className="StoryCard__themeTag">Theme: {story.theme}</h4>
+          <h4 className="StoryCard__intensityTag">
+            {" "}
+            Intensity: {story.intensity}
+          </h4>
+        </div>
         <h4 className="StoryCard__speaker">Speaker: {story.speaker_name}</h4>
-        <h4 className="StoryCard__themeTag">Theme: {story.theme}</h4>
         <h4 className="StoryCard__durationTag">
           <img src={ClockIcon} alt="Clock Icon" className="StoryCard__icon" />{" "}
           {story.duration} Min.
-        </h4>
-        <h4 className="StoryCard__intensityTag">
-          Intensity: {story.intensity}
         </h4>
       </div>
       {!open && (
