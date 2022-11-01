@@ -1,8 +1,6 @@
 import React from "react";
 
-import { useSelector, useDispatch } from "react-redux";
-import { showLoaderSpinner } from "../../redux/actions";
-import { hideLoaderSpinner } from "../../redux/actions";
+import { useSelector } from "react-redux";
 
 import Header from "../Header";
 import LoaderSpinner from "../LoaderSpinner";
@@ -13,14 +11,8 @@ import useGetAllStories from "../../hooks/useGetAllStories";
 import "./styles.scss";
 
 export default function StoryList() {
-  const dispatch = useDispatch();
-  const loading = useSelector((state: any) => state.loading);
-
+  const loading = useSelector((state: { loading: boolean }) => state.loading);
   const stories = useGetAllStories();
-
-  if (stories) {
-    dispatch(hideLoaderSpinner());
-  }
 
   return (
     <div>

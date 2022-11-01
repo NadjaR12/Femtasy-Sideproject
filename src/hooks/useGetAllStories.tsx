@@ -1,5 +1,8 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+
+import { useDispatch } from "react-redux";
+import { hideLoaderSpinner } from "../redux/actions";
 
 const api = axios.create({
   baseURL: "https://staging.femtasy.com",
@@ -10,7 +13,12 @@ const api = axios.create({
 });
 
 const useGetAllStories = () => {
+  const dispatch = useDispatch();
   const [stories, setStories] = useState([] as any[]);
+
+  if (stories) {
+    dispatch(hideLoaderSpinner());
+  }
 
   useEffect(() => {
     api
