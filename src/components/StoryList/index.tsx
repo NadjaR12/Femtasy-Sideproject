@@ -1,44 +1,40 @@
-import axios from "axios";
+import React from "react";
 
-import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import useGetAllStories from "../../hooks/useGetAllStories";
+import { Story } from "../../redux/reducers/setStoriesReducer";
 
 import Header from "../Header";
+import LoaderSpinner from "../LoaderSpinner";
+import StoryCard from "../StoryCard";
 
-const api = axios.create({
-  baseURL: "https://staging.femtasy.com",
-  headers: {
-    "Access-Control-Allow-Origin": true,
-    withCredentials: true,
-  },
-});
+import "./styles.scss";
 
 export default function StoryList() {
-  const [stories, setStories] = useState([] as any[]);
-
-  useEffect(() => {
-    api
-      .get("/api/v1/data_feeds/stories?locale=de&filters=tags.name_de:bdsm")
-      .then((response) => {
-        console.log("response.data", response.data);
-        setStories(response.data);
-      })
-      .catch((err) => {
-        console.log("error", err);
-        return [];
-      });
-  }, []);
+  useGetAllStories();
+  const loading = useSelector<any, boolean>(
+    ({ loaderReducer: { loading } }) => loading
+  );
+  const stories = useSelector<any, Story[]>(
+    ({ setStoriesReducer: { storiesData } }) => storiesData
+  );
 
   return (
     <div>
       <Header title="Femtasy Audios" subtitle="List of All Audios" />
-      {stories.map((story) => {
-        return (
-          <>
-            <h3>{story.title}</h3>
-            <div>{story.description}</div>
-          </>
-        );
-      })}
+      {loading || stories === undefined ? (
+        <LoaderSpinner />
+      ) : (
+        <div className="StoryList">
+          {stories.map((story) => {
+            return (
+              <div key={story.story_id}>
+                <StoryCard story={story} />
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
