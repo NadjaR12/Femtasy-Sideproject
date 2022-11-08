@@ -1,8 +1,8 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { useDispatch } from "react-redux";
-import { hideLoaderSpinner } from "../redux/actions";
+import { hideLoaderSpinner, setStoriesData } from "../redux/actions";
 
 const api = axios.create({
   baseURL: "https://staging.femtasy.com",
@@ -14,25 +14,20 @@ const api = axios.create({
 
 const useGetAllStories = () => {
   const dispatch = useDispatch();
-  const [stories, setStories] = useState([] as any[]);
-
-  if (stories) {
-    dispatch(hideLoaderSpinner());
-  }
 
   useEffect(() => {
     api
       .get("/api/v1/data_feeds/stories?locale=de&filters=tags.name_de:bdsm")
       .then((response) => {
-        setStories(response.data);
+        console.log("data", response.data);
+        dispatch(setStoriesData(response.data));
+        dispatch(hideLoaderSpinner());
       })
       .catch((err) => {
         console.log("error", err);
         return [];
       });
-  }, []);
-
-  return stories;
+  }, [dispatch]);
 };
 
 export default useGetAllStories;
