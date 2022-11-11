@@ -1,6 +1,8 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setStory } from "../redux/actions";
+import { Story } from "../redux/reducers/setStoryReducer";
 
 const api = axios.create({
   baseURL: "https://staging.femtasy.com",
@@ -10,30 +12,25 @@ const api = axios.create({
   },
 });
 
-const useGetStory = () => {
-  const [story, setStory] = useState([] as any[]);
-
-  const { id } = useParams();
-  console.log(id);
+const useGetStory = (storyId: number) => {
+  const dispatch = useDispatch();
 
   useEffect(() => {
     api
       .get("/api/v1/data_feeds/stories?locale=de&filters=tags.name_de:bdsm")
       .then((response) => {
-        // console.log(
-        //   response.data.filter(
-        //     (entry: { story_id: number }) => entry.story_id === id
-        //   )
-        // );
-        setStory(response.data);
+        response.data.filter((entry: Story) => {
+          if (entry.story_id === storyId) {
+            dispatch(setStory(entry));
+          }
+          return console.log("story dispatched");
+        });
       })
       .catch((err) => {
         console.log("error", err);
         return [];
       });
-  }, []);
-
-  return story;
+  }, [dispatch, storyId]);
 };
 
 export default useGetStory;

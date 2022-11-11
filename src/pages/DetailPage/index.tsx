@@ -6,8 +6,8 @@ import useGetStory from "../../hooks/useGetStory";
 import "./styles.scss";
 
 const StoryDetailCard = () => {
-  const story = useGetStory();
-  console.log(story);
+  // const story = useGetStory();
+  // console.log(story);
   return (
     <div className="StoryDetailCard">
       {/* <h3 className="StoryCard__title">{story.title}</h3> */}
