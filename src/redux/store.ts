@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import handleOpenReducer from "./reducers/handleOpenReducer";
-import loaderReducer from "./reducers/loaderSpinnerReducer";
+import open from "./reducers/handleOpenReducer";
+import loading from "./reducers/loaderSpinnerReducer";
 // import setStoryReducer from "./reducers/setStoryReducer";
-import setStoriesReducer from "./reducers/setStoriesReducer";
+import stories from "./reducers/setStoriesReducer";
 
 const reduxStore = configureStore({
-  reducer: { loaderReducer, setStoriesReducer, handleOpenReducer },
+  reducer: { loading, stories, open },
 });
 
 export default reduxStore;

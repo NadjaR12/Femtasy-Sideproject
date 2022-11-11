@@ -1,20 +1,20 @@
 interface IInitialStateProps {
-  loading: boolean;
+  isLoading: boolean;
 }
 
 const initialState: IInitialStateProps = {
-  loading: true,
+  isLoading: true,
 };
 
-const loaderReducer = (state = initialState, action: { type: string }) => {
+const isLoading = (state = initialState, action: { type: string }) => {
   console.log("loaderReducer called");
   if (action.type === "HIDE_LOADERSPINNER") {
     return {
       ...state,
-      loading: false,
+      isLoading: false,
     };
   }
   return state;
 };
 
-export default loaderReducer;
+export default isLoading;

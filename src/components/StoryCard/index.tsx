@@ -21,9 +21,7 @@ interface IProps {
 export default function StoryCard({ story }: IProps) {
   const dispatch = useDispatch();
 
-  const isOpen = useSelector<any, boolean>(
-    ({ handleOpenReducer: { isOpen } }) => isOpen
-  );
+  const isOpen = useSelector<any, boolean>(({ open: { isOpen } }) => isOpen);
 
   const handleOpen = () => {
     dispatch(toggleOpen());
