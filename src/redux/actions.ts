@@ -7,8 +7,21 @@ export const hideLoaderSpinner = () => {
   };
 };
 
-export const setStoriesData = (payload: Story[]) => {
+export const setStories = (payload: Story[]) => {
   console.log("set data action");
 
   return { type: "SET_STORIES_DATA", payload };
+};
+
+export const setStory = (payload: Story) => {
+  console.log("set story data action");
+
+  return { type: "SET_STORY_DATA", payload };
+};
+
+export const toggleOpen = () => {
+  console.log("toggle open action");
+  return {
+    type: "TOGGLE_DESCRIPTION",
+  };
 };

@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import ClockIcon from "../../assets/icons/clock.png";
+import { toggleOpen } from "../../redux/actions";
 
 import "./styles.scss";
 
@@ -17,13 +19,16 @@ interface IProps {
 }
 
 export default function StoryCard({ story }: IProps) {
-  const [open, isOpen] = useState(false);
+  const dispatch = useDispatch();
+
+  const isOpen = useSelector<any, boolean>(
+    ({ handleOpenReducer: { isOpen } }) => isOpen
+  );
 
   const handleOpen = () => {
-    isOpen(!open);
+    dispatch(toggleOpen());
   };
 
-  // console.log(story.story_id);
   return (
     <div className="StoryCard" data-testid="StoryCard">
       <h3 className="StoryCard__title">{story.title}</h3>
@@ -41,12 +46,12 @@ export default function StoryCard({ story }: IProps) {
           {story.duration} Min.
         </h4>
       </div>
-      {!open && (
+      {!isOpen && (
         <button className="StoryCard__button" onClick={handleOpen}>
           show more
         </button>
       )}
-      {open && (
+      {isOpen && (
         <>
           <div className="StoryCard__description">{story.description}</div>
           <button className="StoryCard__button" onClick={handleOpen}>
