@@ -13,6 +13,10 @@ export const setStories = (payload: Story[]) => {
   return { type: "SET_STORIES_DATA", payload };
 };
 
+export const setStoryId = (payload: number) => {
+  return { type: "SET_STORY_ID", payload };
+};
+
 export const setStory = (payload: Story) => {
   console.log("set story data action");
 

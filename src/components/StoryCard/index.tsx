@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import ClockIcon from "../../assets/icons/clock.png";
-import { toggleOpen } from "../../redux/actions";
+import { setStoryId, toggleOpen } from "../../redux/actions";
 
 import "./styles.scss";
 
@@ -23,7 +23,12 @@ export default function StoryCard({ story }: IProps) {
 
   const isOpen = useSelector<any, boolean>(({ open: { isOpen } }) => isOpen);
 
-  const handleOpen = () => {
+  const storyId = useSelector<any, number>(
+    ({ storyId: { storyId } }) => storyId
+  );
+
+  const handleOpen = async () => {
+    await dispatch(setStoryId(story.story_id));
     dispatch(toggleOpen());
   };
 
@@ -34,32 +39,30 @@ export default function StoryCard({ story }: IProps) {
         <div className="StoryCard__theme">
           <h4 className="StoryCard__themeTag">Theme: {story.theme}</h4>
           <h4 className="StoryCard__intensityTag">
-            {" "}
             Intensity: {story.intensity}
           </h4>
         </div>
         <h4 className="StoryCard__speaker">Speaker: {story.speaker_name}</h4>
         <h4 className="StoryCard__durationTag">
-          <img src={ClockIcon} alt="Clock Icon" className="StoryCard__icon" />{" "}
+          <img src={ClockIcon} alt="Clock Icon" className="StoryCard__icon" />
           {story.duration} Min.
         </h4>
       </div>
-      {!isOpen && (
-        <button className="StoryCard__button" onClick={handleOpen}>
-          show more
-        </button>
-      )}
-      {isOpen && (
+      {isOpen && storyId === story.story_id ? (
         <>
           <div className="StoryCard__description">{story.description}</div>
           <button className="StoryCard__button" onClick={handleOpen}>
             show less
           </button>
         </>
+      ) : (
+        <button className="StoryCard__button" onClick={handleOpen}>
+          show more
+        </button>
       )}
-      <button className="StoryCard__button">
+      {/* <button className="StoryCard__button">
         <a href={`/home/${story.story_id}`}>show details</a>
-      </button>
+      </button> */}
     </div>
   );
 }
