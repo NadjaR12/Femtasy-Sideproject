@@ -16,18 +16,22 @@ const useGetAllStories = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    api
-      .get("/api/v1/data_feeds/stories?locale=de&filters=tags.name_de:bdsm")
-      .then((response) => {
+    const getData = async () => {
+      try {
+        const response = await api.get(
+          "/api/v1/data_feeds/stories?locale=de&filters=tags.name_de:bdsm"
+        );
         console.log("data", response.data);
         dispatch(setStories(response.data));
-        dispatch(hideLoaderSpinner());
-      })
-      .catch((err) => {
+      } catch (err) {
         console.log("error", err);
         return [];
-      });
-  }, [dispatch]);
+      } finally {
+        dispatch(hideLoaderSpinner());
+      }
+    };
+    getData();
+  }, []);
 };
 
 export default useGetAllStories;
