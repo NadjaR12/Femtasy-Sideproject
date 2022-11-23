@@ -27,6 +27,9 @@ export default function NavBar() {
       {location.pathname !== "/home" && (
         <NavBarItem title="Home" link="/home" />
       )}
+      {location.pathname !== "/countries" && (
+        <NavBarItem title="Countries" link="/countries" />
+      )}
     </div>
   );
 }
