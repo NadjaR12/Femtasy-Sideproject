@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import ClockIcon from "../../assets/icons/clock.png";
-import { setStoryId, toggleOpen } from "../../redux/actions";
+import { setStoryId } from "../../redux/actions";
 
 import "./styles.scss";
 
@@ -21,7 +21,7 @@ interface IProps {
 export default function StoryCard({ story }: IProps) {
   const dispatch = useDispatch();
 
-  const isOpen = useSelector<any, boolean>(({ open: { isOpen } }) => isOpen);
+  // const isOpen = useSelector<any, boolean>(({ open: { isOpen } }) => isOpen);
 
   const storyId = useSelector<any, number>(
     ({ storyId: { storyId } }) => storyId
@@ -29,7 +29,6 @@ export default function StoryCard({ story }: IProps) {
 
   const handleOpen = async () => {
     await dispatch(setStoryId(story.story_id));
-    dispatch(toggleOpen());
   };
 
   return (
@@ -48,7 +47,7 @@ export default function StoryCard({ story }: IProps) {
           {story.duration} Min.
         </h4>
       </div>
-      {isOpen && storyId === story.story_id ? (
+      {storyId === story.story_id ? (
         <>
           <div className="StoryCard__description">{story.description}</div>
           <button className="StoryCard__button" onClick={handleOpen}>
@@ -60,9 +59,6 @@ export default function StoryCard({ story }: IProps) {
           show more
         </button>
       )}
-      {/* <button className="StoryCard__button">
-        <a href={`/home/${story.story_id}`}>show details</a>
-      </button> */}
     </div>
   );
 }
