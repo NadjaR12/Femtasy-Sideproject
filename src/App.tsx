@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import LandingPage from "./pages/LandingPage";
 
 import "./App.scss";
-import StoryDetailPage from "./pages/DetailPage";
+import CountryPage from "./pages/CountryPage";
 
 export default function App() {
   return (
@@ -14,7 +14,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/home/:storyId" element={<StoryDetailPage />} />
+          <Route path="/countries" element={<CountryPage />} />
         </Routes>
       </BrowserRouter>
     </div>
