@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import CountryPage from "./pages/CountryPage";
 import Home from "./pages/Home";
 import LandingPage from "./pages/LandingPage";
 
 import "./App.scss";
-import CountryPage from "./pages/CountryPage";
 
 export default function App() {
   return (
