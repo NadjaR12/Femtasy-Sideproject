@@ -1,9 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import loaderReducer from "./reducers/loaderSpinnerReducer";
-import setStoriesReducer from "./reducers/setStoriesReducer";
+import { rootReducer } from "./reducers/rootReducer";
 
 const reduxStore = configureStore({
-  reducer: { loaderReducer, setStoriesReducer },
+  reducer: rootReducer,
 });
 
 export default reduxStore;

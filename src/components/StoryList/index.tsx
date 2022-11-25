@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useSelector } from "react-redux";
 import useGetAllStories from "../../hooks/useGetAllStories";
-import { Story } from "../../redux/reducers/setStoriesReducer";
+import { Story } from "../../types/Story";
 
 import Header from "../Header";
 import LoaderSpinner from "../LoaderSpinner";
@@ -11,18 +11,26 @@ import StoryCard from "../StoryCard";
 import "./styles.scss";
 
 export default function StoryList() {
-  useGetAllStories();
-  const loading = useSelector<any, boolean>(
-    ({ loaderReducer: { loading } }) => loading
+  console.log("storylist");
+
+  const isLoading = useSelector<any, boolean>(
+    ({ stories: { isLoading } }) => isLoading
   );
+
   const stories = useSelector<any, Story[]>(
-    ({ setStoriesReducer: { storiesData } }) => storiesData
+    ({ stories: { storiesData } }) => storiesData
   );
+
+  useGetAllStories();
+
+  useEffect(() => {
+    console.log("componentDidMount and componentDidUpdate");
+  }, []);
 
   return (
     <div>
       <Header title="Femtasy Audios" subtitle="List of All Audios" />
-      {loading || stories === undefined ? (
+      {isLoading ? (
         <LoaderSpinner />
       ) : (
         <div className="StoryList">

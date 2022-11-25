@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import ClockIcon from "../../assets/icons/clock.png";
+import { storiesActions } from "../../redux/actions";
 
 import "./styles.scss";
 
@@ -17,13 +19,18 @@ interface IProps {
 }
 
 export default function StoryCard({ story }: IProps) {
-  const [open, isOpen] = useState(false);
+  const dispatch = useDispatch();
 
-  const handleOpen = () => {
-    isOpen(!open);
+  // const isOpen = useSelector<any, boolean>(({ open: { isOpen } }) => isOpen);
+
+  const storyId = useSelector<any, number>(
+    ({ stories: { storyId } }) => storyId
+  );
+
+  const handleOpen = async () => {
+    await dispatch(storiesActions.setStoryId(story.story_id));
   };
 
-  // console.log(story.story_id);
   return (
     <div className="StoryCard" data-testid="StoryCard">
       <h3 className="StoryCard__title">{story.title}</h3>
@@ -31,32 +38,27 @@ export default function StoryCard({ story }: IProps) {
         <div className="StoryCard__theme">
           <h4 className="StoryCard__themeTag">Theme: {story.theme}</h4>
           <h4 className="StoryCard__intensityTag">
-            {" "}
             Intensity: {story.intensity}
           </h4>
         </div>
         <h4 className="StoryCard__speaker">Speaker: {story.speaker_name}</h4>
         <h4 className="StoryCard__durationTag">
-          <img src={ClockIcon} alt="Clock Icon" className="StoryCard__icon" />{" "}
+          <img src={ClockIcon} alt="Clock Icon" className="StoryCard__icon" />
           {story.duration} Min.
         </h4>
       </div>
-      {!open && (
-        <button className="StoryCard__button" onClick={handleOpen}>
-          show more
-        </button>
-      )}
-      {open && (
+      {storyId === story.story_id ? (
         <>
           <div className="StoryCard__description">{story.description}</div>
           <button className="StoryCard__button" onClick={handleOpen}>
             show less
           </button>
         </>
+      ) : (
+        <button className="StoryCard__button" onClick={handleOpen}>
+          show more
+        </button>
       )}
-      <button className="StoryCard__button">
-        <a href={`/home/${story.story_id}`}>show details</a>
-      </button>
     </div>
   );
 }

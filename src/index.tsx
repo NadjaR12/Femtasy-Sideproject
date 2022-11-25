@@ -5,15 +5,24 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import reduxStore from "./redux/store";
 import { Provider } from "react-redux";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+const client = new ApolloClient({
+  uri: "https://countries.trevorblades.com/graphql",
+  cache: new InMemoryCache(),
+});
+
 root.render(
   <React.StrictMode>
-    <Provider store={reduxStore}>
-      <App />
-    </Provider>
+    <ApolloProvider client={client}>
+      <Provider store={reduxStore}>
+        <App />
+      </Provider>
+    </ApolloProvider>
   </React.StrictMode>
 );
 

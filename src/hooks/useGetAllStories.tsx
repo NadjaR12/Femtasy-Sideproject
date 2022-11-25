@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 
 import { useDispatch } from "react-redux";
-import { hideLoaderSpinner, setStoriesData } from "../redux/actions";
+import { storiesActions } from "../redux/actions";
 
 const api = axios.create({
   baseURL: "https://staging.femtasy.com",
@@ -16,18 +16,22 @@ const useGetAllStories = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    api
-      .get("/api/v1/data_feeds/stories?locale=de&filters=tags.name_de:bdsm")
-      .then((response) => {
+    const getData = async () => {
+      try {
+        const response = await api.get(
+          "/api/v1/data_feeds/stories?locale=de&filters=tags.name_de:bdsm"
+        );
         console.log("data", response.data);
-        dispatch(setStoriesData(response.data));
-        dispatch(hideLoaderSpinner());
-      })
-      .catch((err) => {
+        dispatch(storiesActions.setStories(response.data));
+      } catch (err) {
         console.log("error", err);
         return [];
-      });
-  }, [dispatch]);
+      } finally {
+        dispatch(storiesActions.hideLoaderSpinner());
+      }
+    };
+    getData();
+  }, []);
 };
 
 export default useGetAllStories;
