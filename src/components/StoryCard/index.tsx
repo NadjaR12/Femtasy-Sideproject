@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import ClockIcon from "../../assets/icons/clock.png";
-import { setStoryId } from "../../redux/actions";
+import { storiesActions } from "../../redux/actions";
 
 import "./styles.scss";
 
@@ -24,11 +24,11 @@ export default function StoryCard({ story }: IProps) {
   // const isOpen = useSelector<any, boolean>(({ open: { isOpen } }) => isOpen);
 
   const storyId = useSelector<any, number>(
-    ({ storyId: { storyId } }) => storyId
+    ({ stories: { storyId } }) => storyId
   );
 
   const handleOpen = async () => {
-    await dispatch(setStoryId(story.story_id));
+    await dispatch(storiesActions.setStoryId(story.story_id));
   };
 
   return (

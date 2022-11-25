@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import { useSelector } from "react-redux";
 import useGetAllStories from "../../hooks/useGetAllStories";
-import { Story } from "../../redux/reducers/setStoriesReducer";
+import { Story } from "../../types/Story";
 
 import Header from "../Header";
 import LoaderSpinner from "../LoaderSpinner";
@@ -11,38 +11,28 @@ import StoryCard from "../StoryCard";
 import "./styles.scss";
 
 export default function StoryList() {
+  console.log("storylist");
+
   const isLoading = useSelector<any, boolean>(
-    ({ loading: { isLoading } }) => isLoading
+    ({ stories: { isLoading } }) => isLoading
   );
+
   const stories = useSelector<any, Story[]>(
     ({ stories: { storiesData } }) => storiesData
   );
 
-  // useEffect(() => {
-  //   console.log("componentDidMount");
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log("componentDidMount and componentDidUpdate");
-  // });
-
-  // useEffect(() => {
-  //   console.log("componentDidUpdate - loading");
-  // }, [loading]);
+  useGetAllStories();
 
   useEffect(() => {
-    console.log("componentDidUpdate - stories");
-  }, [stories]);
-
-  useGetAllStories();
+    console.log("componentDidMount and componentDidUpdate");
+  }, []);
 
   return (
     <div>
       <Header title="Femtasy Audios" subtitle="List of All Audios" />
-
-      {isLoading && <LoaderSpinner />}
-
-      {!isLoading && stories && (
+      {isLoading ? (
+        <LoaderSpinner />
+      ) : (
         <div className="StoryList">
           {stories.map((story) => {
             return (

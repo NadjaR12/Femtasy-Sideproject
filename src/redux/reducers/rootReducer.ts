@@ -1,8 +1,4 @@
 import { combineReducers } from "redux";
+import stories from "./storiesReducer";
 
-import open from "./handleOpenReducer";
-import loading from "./loaderSpinnerReducer";
-import stories from "./setStoriesReducer";
-import storyId from "./setStoryIdReducer";
-
-export const rootReducer = combineReducers({ loading, stories, open, storyId });
+export const rootReducer = combineReducers({ stories });

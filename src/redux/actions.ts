@@ -1,31 +1,59 @@
-import { Story } from "./reducers/setStoriesReducer";
+// import axios from "axios";
+// import { useDispatch } from "react-redux";
+import { Story } from "../types/Story";
 
-export const hideLoaderSpinner = () => {
-  console.log("loader Spinner action");
-  return {
-    type: "HIDE_LOADERSPINNER",
-  };
-};
+export const HIDE_LOADERSPINNER = "HIDE_LOADERSPINNER";
+export const SET_STORIES_DATA = "SET_STORIES_DATA";
+export const SET_STORY_ID = "SET_STORY_ID";
+export const TOGGLE_DESCRIPTION = "TOGGLE_DESCRIPTION";
 
-export const setStories = (payload: Story[]) => {
-  console.log("set data action");
+export const storiesActions = {
+  hideLoaderSpinner: () => {
+    console.log("loader Spinner action");
+    return {
+      type: "HIDE_LOADERSPINNER",
+    };
+  },
 
-  return { type: "SET_STORIES_DATA", payload };
-};
+  setStories: (payload: Story[]) => {
+    console.log("set data action");
+    return { type: "SET_STORIES_DATA", payload };
+  },
 
-export const setStoryId = (payload: number) => {
-  return { type: "SET_STORY_ID", payload };
-};
+  // fetchStories: (payload: Story[]) => {
+  //   const api = axios.create({
+  //     baseURL: "https://staging.femtasy.com",
+  //     headers: {
+  //       "Access-Control-Allow-Origin": true,
+  //       withCredentials: true,
+  //     },
+  //   });
 
-export const setStory = (payload: Story) => {
-  console.log("set story data action");
+  //   const getData = async () => {
+  //     try {
+  //       const response = await api.get(
+  //         "/api/v1/data_feeds/stories?locale=de&filters=tags.name_de:bdsm"
+  //       );
+  //       console.log("data", response.data);
+  //       // dispatch(storiesActions.setStories(response.data));
+  //     } catch (err) {
+  //       console.log("error", err);
+  //       return [];
+  //     } finally {
+  //       // dispatch(storiesActions.hideLoaderSpinner());
+  //     }
+  //   };
+  //   getData();
+  // },
 
-  return { type: "SET_STORY_DATA", payload };
-};
+  setStoryId: (payload: number) => {
+    return { type: "SET_STORY_ID", payload };
+  },
 
-export const toggleOpen = () => {
-  console.log("toggle open action");
-  return {
-    type: "TOGGLE_DESCRIPTION",
-  };
+  toggleOpen: () => {
+    console.log("toggle open action");
+    return {
+      type: "TOGGLE_DESCRIPTION",
+    };
+  },
 };
