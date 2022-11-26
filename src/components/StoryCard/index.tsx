@@ -21,14 +21,17 @@ interface IProps {
 export default function StoryCard({ story }: IProps) {
   const dispatch = useDispatch();
 
-  // const isOpen = useSelector<any, boolean>(({ open: { isOpen } }) => isOpen);
+  // let isOpen = useSelector<any, boolean>(({ stories: { isOpen } }) => isOpen);
 
   const storyId = useSelector<any, number>(
     ({ stories: { storyId } }) => storyId
   );
 
+  const isOpen = useSelector<any, boolean>(({ stories: { isOpen } }) => isOpen);
+
   const handleOpen = async () => {
     await dispatch(storiesActions.setStoryId(story.story_id));
+    dispatch(storiesActions.toggleOpen());
   };
 
   return (
@@ -47,7 +50,7 @@ export default function StoryCard({ story }: IProps) {
           {story.duration} Min.
         </h4>
       </div>
-      {storyId === story.story_id ? (
+      {storyId === story.story_id && isOpen ? (
         <>
           <div className="StoryCard__description">{story.description}</div>
           <button className="StoryCard__button" onClick={handleOpen}>
